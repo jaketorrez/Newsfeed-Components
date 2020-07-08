@@ -116,8 +116,7 @@ const data = [    // data is an array of objects
 function articleBuilder(articleData) {
 
   // Declare variables
-  const articleSection = document.querySelector(".articles")
-  const article = document.createElement('article')
+  let article = document.createElement("article")
   let heading = document.createElement('h2')
   let para1 = document.createElement('p')
   let para2 = document.createElement('p')
@@ -127,7 +126,7 @@ function articleBuilder(articleData) {
 
   // Add event listener to the expand button
   expandBtn.addEventListener('click', e => {
-    parent.classlist.toggle("article-open")
+    article.classlist.toggle("article-open")
   })
 
   // Insert data into the elements
@@ -144,4 +143,12 @@ function articleBuilder(articleData) {
   })
 
   return article
-} // End articleBuilder function
+}
+
+// Adding the articles in the data array to the dom
+const articleSection = document.querySelector(".articles")
+let newArticle;
+data.forEach(obj => {
+  newArticle = articleBuilder(obj)
+  articleSection.appendChild(newArticle)
+})
