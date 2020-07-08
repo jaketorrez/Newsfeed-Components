@@ -1,6 +1,6 @@
 /* This is the data we will be using to create our articles */
 /* Look over this data, then proceed to line 91*/
-const data = [
+const data = [    // data is an array of objects
   {
     title: 'Lambda School Students: "We\'re the best!"',
     date: 'Nov 5th, 2018',
@@ -103,7 +103,7 @@ const data = [
 
   Your function should take either an object as its one argument, or 5 separate strings mapping to each property of an article object.
 
-  Step 2: Add an event listener to the expandButton span. This listener should toggle the class 'article-open' on the 'article' div.
+   Step 2: Add an event listener to the expandButton span. This listener should toggle the class 'article-open' on the 'article' div.
 
   Step 3: Don't forget to return something from your function!
 
@@ -111,3 +111,37 @@ const data = [
 
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
 */
+
+// Article builder component:
+function articleBuilder(articleData) {
+
+  // Declare variables
+  const articleSection = document.querySelector(".articles")
+  const article = document.createElement('article')
+  let heading = document.createElement('h2')
+  let para1 = document.createElement('p')
+  let para2 = document.createElement('p')
+  let para3 = document.createElement('p')
+  let expandBtn = document.createElement('button')
+  let articleChildren = []
+
+  // Add event listener to the expand button
+  expandBtn.addEventListener('click', e => {
+    parent.classlist.toggle("article-open")
+  })
+
+  // Insert data into the elements
+  heading.textContent = articleData.title
+  para1.textContent = articleData.firstParagraph
+  para2.textContent = articleData.secondParagraph
+  para3.textContent = articleData.thirdParagraph
+  expandBtn.textContent = "Expand"
+  articleChildren = [heading, para1, para2, para3, expandBtn]
+
+  // Append child elements to their parents
+  articleChildren.forEach(child => {
+    article.appendChild(child)
+  })
+
+  return article
+} // End articleBuilder function
