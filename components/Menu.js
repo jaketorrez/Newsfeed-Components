@@ -34,27 +34,31 @@ let menuItems = [
 
 // Menu building component
 function menuBuilder(menuItems) {
-  let nav = document.createElement('nav')
+  let menu = document.createElement('nav')
   let navList = document.createElement('ul')
-  //nav.setAttribute("display", "none")
+  menu.setAttribute('display', 'none')
+  menu.appendChild(navList)
   menuItems.forEach(item => {
     let navItem = document.createElement('li')
     navItem.textContent = item
     navList.appendChild(navItem)
   })
-  return nav
+  return menu
 }
+const menu = menuBuilder(menuItems)
+
 
 // Add an event listener to the menu button to expand the menu
-let menuButton = document.querySelector(".menu-button")
+let menuButton = document.querySelector('.menu-button')
 menuButton.addEventListener('click', e => {
-  if (e.target.display = "none") {
-    e.target.display = "inline-block"
-    e.stopPropagation()
-  } 
+  if (menu.display = 'none') {
+    menu.display = 'flex'
+  }  else {
+    menu.display = 'none'
+  }
+  e.stopPropagation()
 })
 
 // Adding the menu to the dom
-const menu = menuBuilder(menuItems)
 const header = document.querySelector(".header")
 header.appendChild(menu)
