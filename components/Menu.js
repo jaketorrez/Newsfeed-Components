@@ -36,6 +36,7 @@ let menuItems = [
 function menuBuilder(menuItems) {
   let menu = document.createElement('nav')
   let navList = document.createElement('ul')
+  menu.classList.add('navigation')
   menu.setAttribute('display', 'none')
   menu.appendChild(navList)
   menuItems.forEach(item => {
@@ -51,6 +52,7 @@ const menu = menuBuilder(menuItems)
 // Add an event listener to the menu button to expand the menu
 let menuButton = document.querySelector('.menu-button')
 menuButton.addEventListener('click', e => {
+  menu.classList.toggle('menu-open')
   if (menu.display = 'none') {
     menu.display = 'flex'
   }  else {
