@@ -31,3 +31,30 @@ let menuItems = [
 
   Step 6: Use 'menuMaker' to create a menu using the 'menuItems' array, and append the returned menu to the header.
 */
+
+// Menu building component
+function menuBuilder(menuItems) {
+  let nav = document.createElement('nav')
+  let navList = document.createElement('ul')
+  //nav.setAttribute("display", "none")
+  menuItems.forEach(item => {
+    let navItem = document.createElement('li')
+    navItem.textContent = item
+    navList.appendChild(navItem)
+  })
+  return nav
+}
+
+// Add an event listener to the menu button to expand the menu
+let menuButton = document.querySelector(".menu-button")
+menuButton.addEventListener('click', e => {
+  if (e.target.display = "none") {
+    e.target.display = "inline-block"
+    e.stopPropagation()
+  } 
+})
+
+// Adding the menu to the dom
+const menu = menuBuilder(menuItems)
+const header = document.querySelector(".header")
+header.appendChild(menu)

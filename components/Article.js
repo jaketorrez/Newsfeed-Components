@@ -85,6 +85,13 @@ const data = [    // data is an array of objects
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: 'Humans gone wild: Babies in the Military',
+    date: 'May 15th, 2020',
+    firstParagraph: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum hendrerit magna dolor, in condimentum turpis placerat sed. Pellentesque eget magna eu mauris dignissim hendrerit. Cras mollis facilisis mi, et posuere sapien egestas id. Nulla elit ligula, vestibulum et luctus a, porta nec sapien.',
+    secondParagraph: 'Donec sit amet fringilla magna. In at luctus enim, sit amet egestas ante. Vivamus et pretium lacus. Phasellus vitae lectus purus. Ut pellentesque leo sed pretium fringilla. In turpis turpis, commodo pulvinar porta quis, finibus et arcu. Integer risus massa, venenatis in tortor in, semper semper neque.',
+    thirdParagraph: 'Maecenas tincidunt porttitor velit, at lobortis tellus posuere at. Suspendisse ut erat ut urna dictum facilisis vel id tortor. Donec imperdiet ante ligula, vel hendrerit risus pretium vitae. Aliquam consectetur rhoncus eleifend. Praesent facilisis tempor interdum. Ut sagittis, nunc at tempus auctor, metus nunc gravida neque, eu porttitor neque ligula ut tellus. Fusce tincidunt faucibus felis, non condimentum turpis condimentum in. Aliquam erat volutpat.'
   }
 ];
 
@@ -118,6 +125,7 @@ function articleBuilder(articleData) {
   // Declare variables
   let article = document.createElement("article")
   let heading = document.createElement('h2')
+  let date = document.createElement('p')
   let para1 = document.createElement('p')
   let para2 = document.createElement('p')
   let para3 = document.createElement('p')
@@ -126,16 +134,18 @@ function articleBuilder(articleData) {
 
   // Add event listener to the expand button
   expandBtn.addEventListener('click', e => {
-    article.classlist.toggle("article-open")
+    article.classlist.toggle("article-open")  // Ask about why the class won't toggle
+    e.stopPropagation()
   })
 
   // Insert data into the elements
   heading.textContent = articleData.title
+  date.textContent = articleData.date
   para1.textContent = articleData.firstParagraph
   para2.textContent = articleData.secondParagraph
   para3.textContent = articleData.thirdParagraph
   expandBtn.textContent = "Expand"
-  articleChildren = [heading, para1, para2, para3, expandBtn]
+  articleChildren = [heading, date, para1, para2, para3, expandBtn]
 
   // Append child elements to their parents
   articleChildren.forEach(child => {
@@ -150,5 +160,5 @@ const articleSection = document.querySelector(".articles")
 let newArticle;
 data.forEach(obj => {
   newArticle = articleBuilder(obj)
-  articleSection.appendChild(newArticle)
+  articleSection.prepend(newArticle)
 })
