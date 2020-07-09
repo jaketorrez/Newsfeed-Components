@@ -1,6 +1,6 @@
 /* This is the data we will be using to create our articles */
 /* Look over this data, then proceed to line 91*/
-const data = [
+const data = [    // data is an array of objects
   {
     title: 'Lambda School Students: "We\'re the best!"',
     date: 'Nov 5th, 2018',
@@ -85,6 +85,13 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: 'Humans gone wild: Babies in the Military',
+    date: 'May 15th, 2020',
+    firstParagraph: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum hendrerit magna dolor, in condimentum turpis placerat sed. Pellentesque eget magna eu mauris dignissim hendrerit. Cras mollis facilisis mi, et posuere sapien egestas id. Nulla elit ligula, vestibulum et luctus a, porta nec sapien.',
+    secondParagraph: 'Donec sit amet fringilla magna. In at luctus enim, sit amet egestas ante. Vivamus et pretium lacus. Phasellus vitae lectus purus. Ut pellentesque leo sed pretium fringilla. In turpis turpis, commodo pulvinar porta quis, finibus et arcu. Integer risus massa, venenatis in tortor in, semper semper neque.',
+    thirdParagraph: 'Maecenas tincidunt porttitor velit, at lobortis tellus posuere at. Suspendisse ut erat ut urna dictum facilisis vel id tortor. Donec imperdiet ante ligula, vel hendrerit risus pretium vitae. Aliquam consectetur rhoncus eleifend. Praesent facilisis tempor interdum. Ut sagittis, nunc at tempus auctor, metus nunc gravida neque, eu porttitor neque ligula ut tellus. Fusce tincidunt faucibus felis, non condimentum turpis condimentum in. Aliquam erat volutpat.'
   }
 ];
 
@@ -103,7 +110,7 @@ const data = [
 
   Your function should take either an object as its one argument, or 5 separate strings mapping to each property of an article object.
 
-  Step 2: Add an event listener to the expandButton span. This listener should toggle the class 'article-open' on the 'article' div.
+   Step 2: Add an event listener to the expandButton span. This listener should toggle the class 'article-open' on the 'article' div.
 
   Step 3: Don't forget to return something from your function!
 
@@ -111,3 +118,47 @@ const data = [
 
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
 */
+
+// Article builder component:
+function articleBuilder(articleData) {
+
+  // Declare variables
+  let article = document.createElement("article")
+  let heading = document.createElement('h2')
+  let date = document.createElement('p')
+  let para1 = document.createElement('p')
+  let para2 = document.createElement('p')
+  let para3 = document.createElement('p')
+  let expandBtn = document.createElement('button')
+  let articleChildren = []
+
+  // Add event listener to the expand button
+  expandBtn.addEventListener('click', e => {
+    article.classlist.toggle("article-open")  // Ask about why the class won't toggle
+    e.stopPropagation()
+  })
+
+  // Insert data into the elements
+  heading.textContent = articleData.title
+  date.textContent = articleData.date
+  para1.textContent = articleData.firstParagraph
+  para2.textContent = articleData.secondParagraph
+  para3.textContent = articleData.thirdParagraph
+  expandBtn.textContent = "Expand"
+  articleChildren = [heading, date, para1, para2, para3, expandBtn]
+
+  // Append child elements to their parents
+  articleChildren.forEach(child => {
+    article.appendChild(child)
+  })
+
+  return article
+}
+
+// Adding the articles in the data array to the dom
+const articleSection = document.querySelector(".articles")
+let newArticle;
+data.forEach(obj => {
+  newArticle = articleBuilder(obj)
+  articleSection.prepend(newArticle)
+})
